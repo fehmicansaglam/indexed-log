@@ -1,0 +1,7 @@
+[package]
+name = "indexed-log"
+version = "0.1.0"
+authors = ["Fehmi Can Saglam <fehmican.saglam@gmail.com>"]
+edition = "2018"
+
+[dependencies]
