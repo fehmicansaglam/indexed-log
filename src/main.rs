@@ -3,12 +3,15 @@ use std::io::{Read, Seek, Write};
 use std::path::Path;
 
 fn append(file: &mut File, key: &str, value: &str) {
-    let key_len = (key.len() as u8).to_be_bytes();
-    let value_len = (value.len() as u16).to_be_bytes();
-    let mut len_buf = [key_len[0], value_len[0], value_len[1]];
-    file.write_all(&len_buf);
-    file.write_all(key.as_bytes());
-    file.write_all(value.as_bytes());
+    let key_len = key.len();
+    let key_bytes = (key_len as u8).to_be_bytes();
+    let value_len = value.len();
+    let value_bytes = (value_len as u16).to_be_bytes();
+
+    let mut buf = vec![key_bytes[0], value_bytes[0], value_bytes[1]];
+    buf.append(&mut [key.as_bytes(), value.as_bytes()].concat());
+
+    file.write_all(&buf);
 }
 
 fn read_key_value(file: &mut File) -> String {
