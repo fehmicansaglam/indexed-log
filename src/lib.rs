@@ -95,8 +95,8 @@ fn read_next_from_file(file: &mut File) -> Result<(String, String)> {
     file.read_exact(&mut buf)?;
 
     Ok((
-        String::from_utf8_lossy(&buf[0..key_len]).into_owned(),
-        String::from_utf8_lossy(&buf[key_len..(len)]).into_owned(),
+        String::from_utf8_lossy(&buf[..key_len]).into_owned(),
+        String::from_utf8_lossy(&buf[key_len..]).into_owned(),
     ))
 }
 
@@ -111,7 +111,7 @@ fn read_from_file(file: &mut File, position: &Position) -> Result<(String, Strin
     file.read_exact(&mut buf)?;
 
     Ok((
-        String::from_utf8_lossy(&buf[0..key_len]).into_owned(),
-        String::from_utf8_lossy(&buf[key_len..(len)]).into_owned(),
+        String::from_utf8_lossy(&buf[..key_len]).into_owned(),
+        String::from_utf8_lossy(&buf[key_len..]).into_owned(),
     ))
 }
